@@ -93,7 +93,7 @@
                 body: JSON.stringify(formData)
             })
             .then(() => {
-                alert('Assignment successfully recorded in Google Sheets!');
+                alert('Assignment successfully recorded!');
                 document.getElementById('assignmentForm').reset(); // Clear form
             })
             .catch(error => {
