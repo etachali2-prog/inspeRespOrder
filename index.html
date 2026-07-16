@@ -34,7 +34,7 @@
     <form id="assignmentForm">
         
         <div class="form-group">
-            <label for="assigned-by">Team Leader/Senior:</label>
+            <label for="assigned_by">Team Leader/Senior:</label>
             <input type="text" id="assigned_by" name="Team Leader/Senior" required>
         </div>
 
@@ -45,7 +45,6 @@
 
         <div class="form-group">
             <label for="machine_name">Machine Name:</label>
-            <!-- Fixed: Matches the JavaScript query variable correctly now -->
             <input type="text" id="machine_name" name="machine_name" required>
         </div>
 
@@ -65,8 +64,8 @@
     </form>
 
     <script>
-        // PASTE YOUR GOOGLE WEB APP URL HERE:
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzRQlC3MmwnTQBMIt5f99sJw9EJLL1UMOSA_ZKHAoXIDUgk7rhNx1nRjIvU8wWYKvlBvQ/exec'; 
+        // PASTE YOUR NEW GOOGLE WEB APP URL HERE:
+        const WEB_APP_URL = 'PASTE_YOUR_COPIED_URL_HERE'; 
 
         document.getElementById('assignmentForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Stop the page from reloading
@@ -75,9 +74,9 @@
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
 
-            // Gather data from the form fields (Fixed the machine_name id typo!)
+            // Gather data from the form fields (Fixed: assigned_by ID selector fixed!)
             const formData = {
-                assigned_by: document.getElementById('assigned-by').value,
+                assigned_by: document.getElementById('assigned_by').value,
                 assignee: document.getElementById('assignee').value,
                 machine_name: document.getElementById('machine_name').value,
                 location: document.getElementById('location').value,
