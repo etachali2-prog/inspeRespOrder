@@ -1,131 +1,544 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mechanic/Electrician Assignment Form</title>
-    <style>
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: inline-block;
-            width: 200px;
-            font-weight: bold;
-        }
-        input, textarea {
-            padding: 5px;
-            width: 250px;
-        }
-        textarea {
-            vertical-align: top;
-            height: 60px;
-        }
-        button {
-            padding: 8px 15px;
-            cursor: pointer;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MELBA - Maintenance Assignment</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #e8f1fa, #f4f7fb);
+    color: #243247;
+    min-height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, #062b59, #0878c9);
+    color: white;
+    padding: 25px 15px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.header h1 {
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.header p {
+    color: #d9edff;
+    font-size: 14px;
+}
+
+/* Main container */
+.container {
+    width: 92%;
+    max-width: 850px;
+    margin: 35px auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(18, 52, 86, 0.12);
+    overflow: hidden;
+}
+
+.form-header {
+    padding: 25px;
+    background: #f8fbff;
+    border-bottom: 1px solid #dce7f2;
+}
+
+.form-header h2 {
+    color: #06366a;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+form {
+    padding: 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #263d58;
+}
+
+.required {
+    color: #dc2626;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 14px;
+    background: #fff;
+    color: #243247;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #0878c9;
+    box-shadow: 0 0 0 3px rgba(8,120,201,0.12);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+button {
+    padding: 13px 22px;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #0878c9, #0753a2);
+    color: white;
+    flex: 1;
+}
+
+.submit-btn:hover {
+    background: #06366a;
+    transform: translateY(-1px);
+}
+
+.reset-btn {
+    background: #e8eef5;
+    color: #263d58;
+}
+
+.reset-btn:hover {
+    background: #d6e1ed;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#status {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 7px;
+    display: none;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#status.success {
+    display: block;
+    background: #dcfce7;
+    color: #166534;
+}
+
+#status.error {
+    display: block;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+#status.info {
+    display: block;
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* Password screen */
+#passwordScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #062b59, #0878c9);
+}
+
+.password-card {
+    background: white;
+    width: 100%;
+    max-width: 380px;
+    padding: 30px;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.lock-icon {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.password-card h2 {
+    color: #06366a;
+    margin-bottom: 10px;
+}
+
+.password-card p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.password-card input {
+    margin-bottom: 15px;
+}
+
+.password-card button {
+    width: 100%;
+    background: #0878c9;
+    color: white;
+}
+
+#passwordError {
+    color: #dc2626;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        margin: 20px auto;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+    form, .form-header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 21px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .submit-btn, .reset-btn {
+        width: 100%;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <h4>Mechanic/Electrician Assignment Form to Respond to Inspection Results</h4>
-    
+<!-- Password screen -->
+<div id="passwordScreen">
+    <div class="password-card">
+        <div class="lock-icon">🔐</div>
+        <h2>Restricted Access</h2>
+        <p>
+            MELBA Technical Department<br>
+            Enter the password to open the assignment form.
+        </p>
+
+        <form id="passwordForm">
+            <input
+                type="password"
+                id="passwordInput"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
+            <button type="submit">Unlock Form</button>
+            <div id="passwordError"></div>
+        </form>
+    </div>
+</div>
+
+<!-- Main header -->
+<header class="header">
+    <h1>MELBA TECHNICAL DEPARTMENT</h1>
+    <p>Maintenance Management & Inspection Follow-Up</p>
+</header>
+
+<!-- Assignment form -->
+<main class="container" id="protected-content" hidden>
+
+    <div class="form-header">
+        <h2>Mechanic / Electrician Assignment Form</h2>
+        <p>
+            Use this form to assign corrective maintenance work
+            based on machine inspection results.
+        </p>
+    </div>
+
     <form id="assignmentForm">
-        
-        <div class="form-group">
-            <label for="assigned_by">Team Leader/Senior:</label>
-            <input type="text" id="assigned_by" name="Team Leader/Senior" required>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="assigned_by">
+                    Team Leader / Senior <span class="required">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="assigned_by"
+                    name="assigned_by"
+                    placeholder="Enter team leader's name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="assignee">
+                    Assigned Electrician / Mechanic
+                    <span class="required">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="assignee"
+                    name="assignee"
+                    placeholder="Enter assigned employee's name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="machine_name">
+                    Machine Name <span class="required">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="machine_name"
+                    name="machine_name"
+                    placeholder="Enter machine name"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="location">
+                    Machine Location <span class="required">*</span>
+                </label>
+                <select id="location" name="location" required>
+                    <option value="">Select location</option>
+                    <option value="Prepress">Prepress</option>
+                    <option value="Printing">Printing</option>
+                    <option value="Finishing">Finishing</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Maintenance Workshop">
+                        Maintenance Workshop
+                    </option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group full">
+                <label for="problem">
+                    Problem Encountered / Inspection Findings
+                    <span class="required">*</span>
+                </label>
+                <textarea
+                    id="problem"
+                    name="problem"
+                    placeholder="Describe the problem, inspection findings, and required corrective action..."
+                    required
+                ></textarea>
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <label for="assignee">Assigned Electrician/Mechanic:</label>
-            <input type="text" id="assignee" name="Assigned Electrician/Mechanic" required>
+        <div class="buttons">
+            <button type="submit" id="submitBtn" class="submit-btn">
+                Submit Assignment
+            </button>
+
+            <button type="reset" class="reset-btn">
+                Clear Form
+            </button>
         </div>
 
-        <div class="form-group">
-            <label for="machine_name">Machine Name:</label>
-            <input type="text" id="machine_name" name="machine_name" required>
-        </div>
+        <div id="status" role="status" aria-live="polite"></div>
 
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required>
-        </div>
-
-        <div class="form-group">
-            <label for="problem">Problem Encountered:</label>
-            <textarea id="problem" name="problem" required></textarea>
-        </div>
-        
-        <div class="form-group">
-            <button type="submit" id="submitBtn">Submit Assignment</button>
-        </div>
     </form>
+</main>
 
-    <script>
-        // PASTE YOUR NEW GOOGLE WEB APP URL HERE:
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzw0Uq9OrfKbBj_SWO5ac0aUrknQeRWbip0Ejz38HoxDUps21GdnnU76639n3o93WcJ-Q/exec'; 
+<footer class="footer">
+    © 2026 MELBA PRINTING PUBLISHING & PACKAGING S.C.
+    | Technical Department
+</footer>
 
-        document.getElementById('assignmentForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from reloading
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
+<script>
+/*
+ IMPORTANT:
+ This is only a basic client-side access screen.
+ It does not securely protect the form or Google Sheet.
+ For real access control, use server-side authentication.
+*/
+const FORM_PASSWORD = "MySecretPassword123";
 
-            // Gather data from the form fields (Fixed: assigned_by ID selector fixed!)
-            const formData = {
-                assigned_by: document.getElementById('assigned_by').value,
-                assignee: document.getElementById('assignee').value,
-                machine_name: document.getElementById('machine_name').value,
-                location: document.getElementById('location').value,
-                problem: document.getElementById('problem').value
-            };
+/*
+ Replace this URL with your deployed Google Apps Script
+ Web App URL if it changes.
+*/
+const WEB_APP_URL =
+'https://script.google.com/macros/s/AKfycbzw0Uq9OrfKbBj_SWO5ac0aUrknQeRWbip0Ejz38HoxDUps21GdnnU76639n3o93WcJ-Q/exec';
 
-            // Send data to Google Apps Script
-            fetch(WEB_APP_URL, {
-                method: 'POST',
-                mode: 'no-cors', // Critical for cross-domain requests to Google Scripts
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(() => {
-                alert('Assignment successfully recorded!');
-                document.getElementById('assignmentForm').reset(); // Clear form
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Something went wrong. Please try again.');
-            })
-            .finally(() => {
-                submitBtn.textContent = 'Submit Assignment';
-                submitBtn.disabled = false;
-            });
+const passwordScreen = document.getElementById("passwordScreen");
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const passwordError = document.getElementById("passwordError");
+const protectedContent = document.getElementById("protected-content");
+
+passwordForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (passwordInput.value === FORM_PASSWORD) {
+        passwordScreen.style.display = "none";
+        protectedContent.hidden = false;
+        passwordError.textContent = "";
+    } else {
+        passwordError.textContent = "Incorrect password. Please try again.";
+        passwordInput.value = "";
+        passwordInput.focus();
+    }
+});
+
+const assignmentForm = document.getElementById("assignmentForm");
+const submitBtn = document.getElementById("submitBtn");
+const statusBox = document.getElementById("status");
+
+function showStatus(message, type) {
+    statusBox.textContent = message;
+    statusBox.className = type;
+}
+
+assignmentForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    if (!assignmentForm.reportValidity()) {
+        return;
+    }
+
+    const formData = {
+        assigned_by: document.getElementById("assigned_by").value.trim(),
+        assignee: document.getElementById("assignee").value.trim(),
+        machine_name: document.getElementById("machine_name").value.trim(),
+        location: document.getElementById("location").value,
+        problem: document.getElementById("problem").value.trim(),
+        submitted_at: new Date().toISOString()
+    };
+
+    if (!WEB_APP_URL || !WEB_APP_URL.includes("/exec")) {
+        showStatus("Please configure your Google Apps Script Web App URL.", "error");
+        return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    showStatus("Sending assignment to Google Sheets...", "info");
+
+    try {
+        /*
+         With no-cors, the browser cannot read Google's response.
+         A fulfilled fetch does NOT prove that the row was saved.
+        */
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body: JSON.stringify(formData)
         });
-   
-        function checkPassword() {
-            // Set your password here!
-            const correctPassword = "MySecretPassword123"; 
-            
-            const userPassword = prompt("Please enter the password to view this sheet:");
 
-            if (userPassword === correctPassword) {
-                // Show the sheet if the password is correct
-                document.getElementById('protected-content').style.display = 'block';
-                document.body.style.paddingTop = '20px'; // Reset padding
-            } else {
-                alert("Incorrect password. Access denied.");
-                window.location.href = "https://google.com"; // Redirect them away
-            }
-        }
+        showStatus(
+            "The request was sent, but the browser cannot verify " +
+            "whether Google Sheets saved it. Check the spreadsheet before " +
+            "submitting the same assignment again.",
+            "info"
+        );
 
-        // Run the password check as soon as the page starts loading
-        window.onload = checkPassword;
-   
-    </script>
+        // Keep the entered data until the record is verified.
+
+    } catch (error) {
+        console.error("Submission error:", error);
+
+        showStatus(
+            "The request could not be sent. Check your internet connection " +
+            "and Google Apps Script deployment, then try again.",
+            "error"
+        );
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Assignment";
+    }
+});
+
+assignmentForm.addEventListener("reset", function() {
+    statusBox.style.display = "none";
+    statusBox.textContent = "";
+    statusBox.className = "";
+});
+</script>
 
 </body>
 </html>
+```
